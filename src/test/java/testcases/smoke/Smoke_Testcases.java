@@ -27,7 +27,7 @@ public class Smoke_Testcases extends BaseClass {
 	 *
 	 * Author : Kavitha Thota (kavitha.t@comakeit.com)
 	 */
-	@Test(groups = { "smoke", "regression" })
+	@Test(groups = { "smoke" })
 	public void TC_01_registerNewUser() {
 		Guest newUser = (Guest) xml_Ops.getTestData("guest");
 
@@ -45,7 +45,7 @@ public class Smoke_Testcases extends BaseClass {
 	 *
 	 * Author : Kavitha Thota (kavitha.t@comakeit.com)
 	 */
-	@Test(groups = { "smoke", "regression" })
+	@Test(groups = { "smoke" })
 	public void TC_02_LoginWithValidData() {
 
 		homePage = launch_TIC_Application();
@@ -57,38 +57,8 @@ public class Smoke_Testcases extends BaseClass {
 
 	}
 
-	@Test(groups = { "smoke", "regression" })
-	public void Tc_3_Create_UI() {
-
-		homePage = launch_TIC_Application();
-		canvasPage = homePage.openCanvas();
-		canvasPage.createUI();
-
-	}
-
-	@Test(groups = { "smoke", "regression" })
-	public void TC_4_create_Service() {
-		homePage = launch_TIC_Application();
-		canvasPage = homePage.openCanvas();
-		canvasPage.createService();
-	}
-
-	@Test(groups = { "smoke", "regression" })
-	public void TC_5_create_Group() {
-		homePage = launch_TIC_Application();
-		canvasPage = homePage.openCanvas();
-		canvasPage.createGroup();
-	}
-
-	@Test(groups = { "smoke", "regression" })
-	public void TC_06_DragtheNode_Authentication() {
-		homePage = launch_TIC_Application();
-		canvasPage = homePage.openCanvas();
-		canvasPage.dragtheNode_Authentication();
-	}
-
-	@Test(groups = { "smoke", "regression" })
-	public void TC_07_createProject() {
+	@Test(groups = { "smoke" })
+	public void TC_03_createProject() {
 		homePage = launch_TIC_Application();
 		canvasPage = homePage.openCanvas();
 		canvasPage.createUI();
