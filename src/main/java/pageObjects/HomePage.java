@@ -29,5 +29,11 @@ public class HomePage extends BaseClass {
 		return new CanvasPage();
 
 	}
+	
+	public LoginPage openLoginPage() {
+		clickOnButton(link_login, "Login link");
+		return new LoginPage();
+
+	}
 
 }

@@ -14,52 +14,53 @@ public class Smoke_Testcases extends BaseClass {
 	HomePage homePage = new HomePage();
 	LoginPage loginPage = new LoginPage();
 	CanvasPage canvasPage = new CanvasPage();
-
 	// ****************** TEST SCRIPTS ****************************//
-
-	/*
-	 * TC_01_LoginWithValidData
-	 *
-	 */
 
 	/*
 	 * This is a test case to register a new user to the application with valid data
 	 *
 	 * Author : Kavitha Thota (kavitha.t@comakeit.com)
 	 */
-	@Test(groups = { "smoke" })
-	public void TC_01_registerNewUser() {
+
+	@Test(groups = { "regression" })
+	public void TC_01_RegisterwithValidData() {
+
+		// Testdata setup
 		Guest newUser = (Guest) xml_Ops.getTestData("guest");
+		String firstName = newUser.getFirstName() + getTimestamp();
+		String lastName = newUser.getLastName() + getTimestamp();
+		String email = getTimestamp() + newUser.getEmail();
 
+		// Test data assignment
+		newUser.setFirstName(firstName);
+		newUser.setLastName(lastName);
+		newUser.setUserName(firstName + lastName);
+		newUser.setEmail(email);
+
+		// Steps
 		homePage = launch_TIC_Application();
-		loginPage.Register(newUser);
-		canvasPage = homePage.openCanvas();
-		canvasPage.createUI();
-		canvasPage.dragtheNode_Authentication();
-		canvasPage.saveProject();
-
+		loginPage.Registration(newUser);
+		loginPage.verifyLoggedInUserName(newUser.getUserName());
 	}
 
-	/*
-	 * This is a test case to login to the application with valid data
-	 *
-	 * Author : Kavitha Thota (kavitha.t@comakeit.com)
-	 */
-	@Test(groups = { "smoke" })
-	public void TC_02_LoginWithValidData() {
+//This is a test case to login to the application with Valid data
 
+	@Test(groups = { "regression" })
+	public void TC_02_LoginwithValidData() {
+
+		// Steps
 		homePage = launch_TIC_Application();
-		homePage = loginPage.login();
-		canvasPage = homePage.openCanvas();
-		canvasPage.createUI();
-		canvasPage.dragtheNode_Authentication();
-		canvasPage.saveProject();
-
+		homePage.openLoginPage();
+		loginPage.login(username, password);
+		loginPage.verifyLoggedInUserName(username);
 	}
+	// This is a test case to create project
 
-	@Test(groups = { "smoke" })
+	@Test(groups = { "regression" })
 	public void TC_03_createProject() {
 		homePage = launch_TIC_Application();
+		homePage.openLoginPage();
+		loginPage.login(username, password);
 		canvasPage = homePage.openCanvas();
 		canvasPage.createUI();
 		canvasPage.dragtheNode_Authentication();

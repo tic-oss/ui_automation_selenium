@@ -581,18 +581,10 @@ public class Operations extends Extent_Reports {
 		WebElement targetElement = BaseClass.driver.findElement(destination);
 		highlightElement(targetElement);
 
-		// Create an instance of the Actions class
-		Actions builder = new Actions(BaseClass.driver);
-
-		// Building a drag and drop action
-		// Action dragAndDrop =
-		// builder.clickAndHold(sourceElement).moveToElement(targetElement).release(targetElement)
-		// .build();
-
-		builder.dragAndDrop(sourceElement, targetElement).build().perform();
-
-		// Performing the drag and drop action
-		// dragAndDrop.perform();
+		// Create Actions object
+		Actions actions = new Actions(BaseClass.driver);
+		// Perform drag and drop
+		actions.clickAndHold(sourceElement).moveToElement(targetElement).release().build().perform();
 
 	}
 
@@ -602,6 +594,7 @@ public class Operations extends Extent_Reports {
 		WebElement targetElement = BaseClass.driver.findElement(destination);
 
 		JavascriptExecutor js = (JavascriptExecutor) BaseClass.driver;
+
 		String jsScript = "function createEvent(typeOfEvent) {\n"
 				+ "    var event = document.createEvent(\"CustomEvent\");\n"
 				+ "    event.initCustomEvent(typeOfEvent, true, true, null);\n" + "    event.dataTransfer = {\n"
@@ -621,6 +614,8 @@ public class Operations extends Extent_Reports {
 				+ "var sourceElement = arguments[0];\n" + "var targetElement = arguments[1];\n"
 				+ "simulateHTML5DragAndDrop(sourceElement, targetElement);";
 		js.executeScript(jsScript, sourceElement, targetElement);
+
+		// js.executeScript(jsScript, sourceElement, targetElement, 100, 150);
 		waitForPageLoad(2);
 	}
 
@@ -632,17 +627,44 @@ public class Operations extends Extent_Reports {
 		waitForPageLoad(2);
 	}
 
-	public void dd(By source, By destination) {
+	public void ddAC(By source, By destination) {
 		WebElement a = BaseClass.driver.findElement(source);
 		WebElement b = BaseClass.driver.findElement(destination);
 
-		int x = b.getLocation().x;
-		int y = b.getLocation().y;
+		 // Create Actions object
+        Actions actions = new Actions(BaseClass.driver);
 
-		Actions actions = new Actions(BaseClass.driver);
-		actions.moveToElement(a).pause(Duration.ofSeconds(1)).clickAndHold(a).pause(Duration.ofSeconds(1))
-				.moveByOffset(x, y).moveToElement(b).moveByOffset(x, y).pause(Duration.ofSeconds(1)).release().build()
-				.perform();
+        // Perform drag and drop using JavaScript
+        String script = "function createEvent(typeOfEvent) {"
+                        + "var event = document.createEvent(\"CustomEvent\");"
+                        + "event.initCustomEvent(typeOfEvent, true, true, null);"
+                        + "event.dataTransfer = { data: {}, setData: function (key, value) { this.data[key] = value; }, getData: function (key) { return this.data[key]; } };"
+                        + "return event;"
+                        + "} "
+                        + "function dispatchEvent(element, event, transferData) {"
+                        + "if (transferData !== undefined) {"
+                        + "event.dataTransfer = transferData;"
+                        + "}"
+                        + "if (element.dispatchEvent) {"
+                        + "element.dispatchEvent(event);"
+                        + "} else if (element.fireEvent) {"
+                        + "element.fireEvent(\"on\" + event.type, event);"
+                        + "}"
+                        + "}"
+                        + "function simulateDragAndDrop(sourceElement, targetElement) {"
+                        + "var dragStartEvent = createEvent('dragstart');"
+                        + "dispatchEvent(sourceElement, dragStartEvent);"
+                        + "var dropEvent = createEvent('drop');"
+                        + "dispatchEvent(targetElement, dropEvent, dragStartEvent.dataTransfer);"
+                        + "var dragEndEvent = createEvent('dragend');"
+                        + "dispatchEvent(sourceElement, dragEndEvent, dropEvent.dataTransfer);"
+                        + "}"
+                        + "simulateDragAndDrop(arguments[0], arguments[1]);";
+
+        ((JavascriptExecutor) BaseClass.driver).executeScript(script, a, b);
+
+        // Perform the drag and drop action
+        actions.dragAndDrop(a, b).perform();
 	}
 
 	public void moveRight(By ele, By destination) {
@@ -652,4 +674,95 @@ public class Operations extends Extent_Reports {
 		Actions actions = new Actions(BaseClass.driver);
 		actions.moveToElement(b).release().build().perform();
 	}
+
+	public void _moveRight(By ele, By destination) {
+		WebElement a = BaseClass.driver.findElement(ele);
+		WebElement b = BaseClass.driver.findElement(destination);
+
+		Actions actions = new Actions(BaseClass.driver);
+		actions.click(a).sendKeys(Keys.ARROW_RIGHT).perform();
+	}
+
+	public void _moveDown(By ele) {
+		WebElement a = BaseClass.driver.findElement(ele);
+
+		Actions actions = new Actions(BaseClass.driver);
+		actions.click(a).sendKeys(Keys.ARROW_DOWN).perform();
+	}
+
+	public void _moveLeft(By ele) {
+		WebElement a = BaseClass.driver.findElement(ele);
+
+		highlightElement(a);
+
+		Actions actions = new Actions(BaseClass.driver);
+		actions.clickAndHold(a).sendKeys(Keys.ARROW_LEFT).sendKeys(Keys.ARROW_LEFT).sendKeys(Keys.ARROW_LEFT)
+				.sendKeys(Keys.ARROW_LEFT).sendKeys(Keys.ARROW_LEFT).sendKeys(Keys.ARROW_LEFT).sendKeys(Keys.ARROW_LEFT)
+				.sendKeys(Keys.ARROW_LEFT).sendKeys(Keys.ARROW_LEFT).sendKeys(Keys.ARROW_LEFT).sendKeys(Keys.ARROW_LEFT)
+				.sendKeys(Keys.ARROW_LEFT).sendKeys(Keys.ARROW_LEFT).sendKeys(Keys.ARROW_LEFT).sendKeys(Keys.ARROW_LEFT)
+				.sendKeys(Keys.ARROW_LEFT).perform();
+	}
+
+	public void drdp(By canv, By src) {
+		// Locate canvas element
+		WebElement canvas = BaseClass.driver.findElement(canv);
+		highlightElement(canvas);
+
+		WebElement a = BaseClass.driver.findElement(src);
+		highlightElement(a);
+
+		// a.getSize().getWidth()
+		// Get canvas size
+		int canvasWidth = canvas.getSize().getWidth();
+		int canvasHeight = canvas.getSize().getHeight();
+
+		// Calculate source and target coordinates
+		int sourceX = a.getSize().getWidth(); // Adjust as needed
+		int sourceY = a.getSize().getWidth(); // Adjust as needed
+		int targetX = canvasWidth / 2; // Adjust as needed
+		int targetY = canvasHeight /2; // Adjust as needed
+
+		// Create Actions object
+		Actions actions = new Actions(BaseClass.driver);
+
+		// Perform drag and drop using mouse movements
+		actions.clickAndHold(a).moveToElement(canvas,targetX-sourceX, targetY-sourceY).release().build().perform();
+
+		// Wait for a moment (optional)
+		waitForPageLoad(2);
+		;
+	}
+
+	public void lc(By source, By canv) {
+		WebElement sourceElement = BaseClass.driver.findElement(source);
+		WebElement canvas = BaseClass.driver.findElement(canv);
+
+		 // Calculate source and target element positions
+        int sourceX = sourceElement.getLocation().getX() + sourceElement.getSize().getWidth() / 2;
+        int sourceY = sourceElement.getLocation().getY() + sourceElement.getSize().getHeight() / 2;
+        int targetX = canvas.getLocation().getX() + canvas.getSize().getWidth() / 2;
+        int targetY = canvas.getLocation().getY() + canvas.getSize().getHeight() / 2;
+
+        // Use JavaScript to simulate drag and drop
+        JavascriptExecutor jsExecutor = (JavascriptExecutor) BaseClass.driver;
+        String dragAndDropScript = "function createEvent(type) {\n" +
+                "  var event = document.createEvent('MouseEvent');\n" +
+                "  event.initMouseEvent(type, true, true, window, 0, 0, 0, %d, %d, false, false, false, false, 0, null);\n" +
+                "  return event;\n" +
+                "}\n" +
+                "var source = arguments[0];\n" +
+                "var target = arguments[1];\n" +
+                "source.dispatchEvent(createEvent('mousedown'));\n" +
+                "setTimeout(function() {\n" +
+                "  source.dispatchEvent(createEvent('mousemove'));\n" +
+                "  target.dispatchEvent(createEvent('mousemove'));\n" +
+                "  target.dispatchEvent(createEvent('mouseup'));\n" +
+                "}, 100);\n";
+
+        String formattedScript = String.format(dragAndDropScript, sourceX, sourceY, targetX, targetY);
+        jsExecutor.executeScript(formattedScript, sourceElement, canvas);
+
+
+	}
+
 }

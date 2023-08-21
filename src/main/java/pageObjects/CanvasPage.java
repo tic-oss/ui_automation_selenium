@@ -16,7 +16,7 @@ public class CanvasPage extends BaseClass {
 
 	public By link_login = By.xpath("//p[normalize-space()='Login']");
 
-	By node_UI = By.xpath("//div[contains(text(),'UI+Gateway')]");
+	By node_UI = By.xpath("//div[normalize-space()='UI+Gateway']");
 	By drop_place_UI = By.xpath("//div[@class='react-flow__edgelabel-renderer']");
 
 	By dragged_UI = By.xpath("//div[@role='button']//div[contains(text(),'UI+Gateway')]");
@@ -70,9 +70,13 @@ public class CanvasPage extends BaseClass {
 
 	// web element
 	By drop_Place_UI_ReactFlow_Minimap = By.xpath("(//div[@class='react-flow__pane'])[1]");
+	By dp = By.xpath("//div[@class='react-flow__renderer']");
+	By fitView = By.xpath("//button[@title='fit view']");
 	By dandd = By.xpath("//button[normalize-space()='Drag & Drop']");
 
 	By button_SaveProject = By.xpath("//span[contains(text(),'Save Project')]");
+
+	By link_logout = By.xpath("//p[@class='chakra-text css-q4s4qa']");
 
 	//
 	/*
@@ -82,12 +86,21 @@ public class CanvasPage extends BaseClass {
 	 */
 
 	public void createUI() {
-		// dragAndDrop(node_UI, drop_place);
-		draganddropwithJSE(node_UI, drop_Place_UI_ReactFlow_Minimap);
-		// dd(node_UI, dandd);
+
+		draganddropwithJSE(node_UI, fitView);
+		// dragAndDrop(node_UI, dp);
+		//lc(node_UI, dp);
+		// drdp(dp,node_UI);
+
+		_moveLeft(node_UI);
+		_moveLeft(node_UI);
+		_moveLeft(node_UI);
+		_moveLeft(node_UI);
+		_moveLeft(node_UI);
 
 		clickOnButton(dragged_UI);
-		moveRight(dragged_UI, dandd);
+		_moveRight(dragged_UI, dandd);
+		_moveDown(dragged_UI);
 		doubleClick(dragged_UI);
 		enterText(UI_application_Name, "TestApp", "Application Name");
 		selectDropdown(UI_client_Framework, "React", "Application Framework");

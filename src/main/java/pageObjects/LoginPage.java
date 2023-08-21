@@ -2,9 +2,9 @@ package pageObjects;
 
 import components.BaseClass;
 import dataModel.Guest;
-import dev.failsafe.internal.util.Assert;
 
 import org.openqa.selenium.By;
+import org.testng.Assert;
 
 /*
  * Class which contains the web elements and performs Spa Home page activities (methods)
@@ -30,17 +30,22 @@ public class LoginPage extends BaseClass {
 	By textbox_Confirm_passward = By.xpath("//input[@id='password-confirm']");
 	By button_Register = By.xpath("//input[@value='Register']");
 
+	By link_logout = By.xpath("//p[@class='chakra-text css-q4s4qa']");
+	By Label_InValidEmail = By.xpath("//span[@id='input-error-email']");
+	By Lable_Email_Error = By.xpath("//span[@id='input-error-email']");
+	By Text_Invalid_username_or_password = By.xpath("//span[@id='input-error']");
+
 	// ****************** ACTIONS ****************************//
 	/*
 	 * Method to navigate to perform spa login
 	 *
 	 * Author : Kavitha (Kavitha.t@comakeit.com)
 	 */
-	public HomePage login() {
+	public HomePage login(String username, String password) {
 
-		clickOnButton(link_login, "Login Link");
-		enterText(textbox_Username, BaseClass.username, "Username Text Box");
-		enterText(textbox_Password, BaseClass.password, "Password Text Box");
+		//clickOnButton(link_login, "Login Link");
+		enterText(textbox_Username, username, "Username Text Box");
+		enterText(textbox_Password, password, "Password Text Box");
 		clickOnButton(button_SignIn, "Submit Sign In ");
 
 		HomePage homepage = new HomePage();
@@ -49,23 +54,19 @@ public class LoginPage extends BaseClass {
 		return homepage;
 	}
 
-	public void Register(Guest newUser) {
+	public void Registration(Guest newUser) {
 		clickOnButton(link_login, "Login Link");
 		clickOnButton(link_register, "Register Link");
-
-			String firstName = newUser.getFirstName() + getTimestamp();
-	String lastName = newUser.getLastName() + getTimestamp();
-		String email = getTimestamp() + newUser.getEmail();
 
 		if (isElementDisplayed(label_register)) {
 
 			passStep("Registration pop up is opened");
-			enterText(textbox_firstname, firstName, "FirstName textbox");
-			enterText(textbox_lastname, lastName, "LastName textbox");
-			enterText(textbox_email, email, "Email textbox");
-			enterText(textbox_Register_username, firstName + lastName, "FirstName textbox");
-			enterText(textbox_Register_password, email, "Password textbox");
-			enterText(textbox_Confirm_passward, email, "Confirm Password textbox");
+			enterText(textbox_firstname, newUser.getFirstName(), "FirstName textbox");
+			enterText(textbox_lastname, newUser.getLastName(), "LastName textbox");
+			enterText(textbox_email, newUser.getEmail(), "Email textbox");
+			enterText(textbox_Register_username, newUser.getUserName(), "FirstName textbox");
+			enterText(textbox_Register_password, newUser.getEmail(), "Password textbox");
+			enterText(textbox_Confirm_passward, newUser.getEmail(), "Confirm Password textbox");
 
 			clickOnButton(button_Register, getElementText(button_Register) + " button");
 
@@ -73,4 +74,43 @@ public class LoginPage extends BaseClass {
 			failStep("Registration pop up is not opened");
 
 	}
+
+	public void verifyLoggedInUserName(String userName) {
+
+		String actualUN = getElementText(link_logout);
+		String expectedUN = "Logout (" + userName.toLowerCase() + ")";
+
+		Assert.assertEquals(actualUN, expectedUN, " Username is displayed wrong");
+
+		if (isElementDisplayed(link_logout))
+			passStep("Login/Registration succesful and displayed " + actualUN);
+		else
+			failStep("Login/Registration failed");
+
+	}
+
+	public void verifyErrorMessageForUnsuccessfulRegistation(String expectedErrorMessage) {
+
+		if (isElementDisplayed(Lable_Email_Error)) {
+			passStep("Email validation message is displayed as " + getElementText(Label_InValidEmail));
+			Assert.assertEquals(getElementText(Label_InValidEmail), expectedErrorMessage,
+					"Email validation message is displayed wrong");
+		}
+
+	}
+
+	public void verifyErrorMessageForInvalidLogin(String expectedErrorMessage) {
+
+		if (isElementDisplayed(Text_Invalid_username_or_password)) {
+			passStep("Email validation message is displayed as " + getElementText(Text_Invalid_username_or_password));
+			Assert.assertEquals(getElementText(Text_Invalid_username_or_password), expectedErrorMessage,
+					"Invalid username or password.");
+		}
+	}
+
+	public void logout() {
+		clickOnButton(link_logout, "Log out button");
+		waitForElementTobeDisplayed(link_login);
+	}
+
 }
