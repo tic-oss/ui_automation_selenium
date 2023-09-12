@@ -1,7 +1,6 @@
-# tic_ui_automation
+# tic_ui_automation using Java and Selenium
 
-**Selenium:**
-Selenium is a popular open-source framework and toolset for automating web browsers. It allows developers and testers to interact with web applications in a programmatic way, simulating user actions like clicking buttons, filling out forms, and navigating between web pages. Selenium provides a way to automate tasks that would otherwise need to be performed manually by a human user.
+**Selenium** is a popular open-source framework and toolset for automating web browsers. It allows developers and testers to interact with web applications in a programmatic way, simulating user actions like clicking buttons, filling out forms, and navigating between web pages. Selenium provides a way to automate tasks that would otherwise need to be performed manually by a human user.
 
 Here's an overview of Selenium:
 
@@ -34,3 +33,12 @@ Selenium is a powerful tool for web automation and testing, widely used in the s
 
 **Selenium Architecture**:
 ![image](https://github.com/tic-oss/ui_automation_selenium/assets/141485124/e58ec7e4-6c7d-4e50-a641-348ec630499f)
+
+
+**Setup and execution process**
+1. Install Git 
+2. Install Java (JDK)
+3. Install Eclipse
+4. Clone the project : https://github.com/tic-oss/ui_automation_selenium.git
+5. Setup testNG in Eclipse from eclipse market place
+6. Run the files smoke.xml or regression.xml
