@@ -208,9 +208,14 @@ public class Operations extends Extent_Reports {
 	 * Author : Kavitha Thota(Kavitha.t@comakeit.com)
 	 */
 	public Boolean isElementDisplayed(By element) {
+		waitForPageLoad(2);
+		try {
 		WebElement ele = BaseClass.driver.findElement(element);
 		highlightElement(ele);
 		return ele.isDisplayed();
+		}catch (Exception e) {
+			return false;
+		}
 
 	}
 
@@ -355,6 +360,7 @@ public class Operations extends Extent_Reports {
 			e.printStackTrace();
 		}
 	}
+	
 
 	/*
 	 * Usage : To get the value of the element (Ex: Button name)
@@ -572,13 +578,14 @@ public class Operations extends Extent_Reports {
 
 	}
 
-	public void dragAndDrop(By source, By destination) {
-
+	public void dragAndDrop(By source, By target) {
+		waitForElementTobeDisplayed(source);
+		waitForElementTobeDisplayed(target);
 		WebElement sourceElement = BaseClass.driver.findElement(source);
 		highlightElement(sourceElement);
 
 		// Find the target element where the source element will be dropped
-		WebElement targetElement = BaseClass.driver.findElement(destination);
+		WebElement targetElement = BaseClass.driver.findElement(target);
 		highlightElement(targetElement);
 
 		// Create Actions object
@@ -586,6 +593,24 @@ public class Operations extends Extent_Reports {
 		// Perform drag and drop
 		actions.clickAndHold(sourceElement).moveToElement(targetElement).release().build().perform();
 
+	}
+	
+	public void dragAndDrop1(By source, By target) {
+		waitForElementTobeDisplayed(source);
+		waitForElementTobeDisplayed(target);
+		
+		WebElement sourceElement = BaseClass.driver.findElement(source);
+		highlightElement(sourceElement);
+
+		// Find the target element where the source element will be dropped
+		WebElement targetElement = BaseClass.driver.findElement(target);
+		highlightElement(targetElement);
+
+		// Create Actions object
+		Actions actions = new Actions(BaseClass.driver);
+		// Perform drag and drop
+		actions. clickAndHold(sourceElement).moveToElement(targetElement) .perform();
+		 
 	}
 
 	public void draganddropwithJSE(By source, By destination) {
@@ -631,77 +656,86 @@ public class Operations extends Extent_Reports {
 		WebElement a = BaseClass.driver.findElement(source);
 		WebElement b = BaseClass.driver.findElement(destination);
 
-		 // Create Actions object
-        Actions actions = new Actions(BaseClass.driver);
+		// Create Actions object
+		Actions actions = new Actions(BaseClass.driver);
 
-        // Perform drag and drop using JavaScript
-        String script = "function createEvent(typeOfEvent) {"
-                        + "var event = document.createEvent(\"CustomEvent\");"
-                        + "event.initCustomEvent(typeOfEvent, true, true, null);"
-                        + "event.dataTransfer = { data: {}, setData: function (key, value) { this.data[key] = value; }, getData: function (key) { return this.data[key]; } };"
-                        + "return event;"
-                        + "} "
-                        + "function dispatchEvent(element, event, transferData) {"
-                        + "if (transferData !== undefined) {"
-                        + "event.dataTransfer = transferData;"
-                        + "}"
-                        + "if (element.dispatchEvent) {"
-                        + "element.dispatchEvent(event);"
-                        + "} else if (element.fireEvent) {"
-                        + "element.fireEvent(\"on\" + event.type, event);"
-                        + "}"
-                        + "}"
-                        + "function simulateDragAndDrop(sourceElement, targetElement) {"
-                        + "var dragStartEvent = createEvent('dragstart');"
-                        + "dispatchEvent(sourceElement, dragStartEvent);"
-                        + "var dropEvent = createEvent('drop');"
-                        + "dispatchEvent(targetElement, dropEvent, dragStartEvent.dataTransfer);"
-                        + "var dragEndEvent = createEvent('dragend');"
-                        + "dispatchEvent(sourceElement, dragEndEvent, dropEvent.dataTransfer);"
-                        + "}"
-                        + "simulateDragAndDrop(arguments[0], arguments[1]);";
+		// Perform drag and drop using JavaScript
+		String script = "function createEvent(typeOfEvent) {" + "var event = document.createEvent(\"CustomEvent\");"
+				+ "event.initCustomEvent(typeOfEvent, true, true, null);"
+				+ "event.dataTransfer = { data: {}, setData: function (key, value) { this.data[key] = value; }, getData: function (key) { return this.data[key]; } };"
+				+ "return event;" + "} " + "function dispatchEvent(element, event, transferData) {"
+				+ "if (transferData !== undefined) {" + "event.dataTransfer = transferData;" + "}"
+				+ "if (element.dispatchEvent) {" + "element.dispatchEvent(event);" + "} else if (element.fireEvent) {"
+				+ "element.fireEvent(\"on\" + event.type, event);" + "}" + "}"
+				+ "function simulateDragAndDrop(sourceElement, targetElement) {"
+				+ "var dragStartEvent = createEvent('dragstart');" + "dispatchEvent(sourceElement, dragStartEvent);"
+				+ "var dropEvent = createEvent('drop');"
+				+ "dispatchEvent(targetElement, dropEvent, dragStartEvent.dataTransfer);"
+				+ "var dragEndEvent = createEvent('dragend');"
+				+ "dispatchEvent(sourceElement, dragEndEvent, dropEvent.dataTransfer);" + "}"
+				+ "simulateDragAndDrop(arguments[0], arguments[1]);";
 
-        ((JavascriptExecutor) BaseClass.driver).executeScript(script, a, b);
+		((JavascriptExecutor) BaseClass.driver).executeScript(script, a, b);
 
-        // Perform the drag and drop action
-        actions.dragAndDrop(a, b).perform();
+		// Perform the drag and drop action
+		actions.dragAndDrop(a, b).perform();
 	}
 
-	public void moveRight(By ele, By destination) {
-		WebElement a = BaseClass.driver.findElement(ele);
-		WebElement b = BaseClass.driver.findElement(destination);
+	
+
+
+	public void _moveDown(int num) {
+		//WebElement a = BaseClass.driver.findElement(ele);
 
 		Actions actions = new Actions(BaseClass.driver);
-		actions.moveToElement(b).release().build().perform();
+//		actions.click(a).sendKeys(Keys.ARROW_DOWN).perform();
+		for (int i = 0; i < num; i++) {
+			actions.sendKeys(Keys.ARROW_DOWN).perform();
+		}
 	}
 
-	public void _moveRight(By ele, By destination) {
-		WebElement a = BaseClass.driver.findElement(ele);
-		WebElement b = BaseClass.driver.findElement(destination);
+	public void _moveUp(int num) {
+		//WebElement a = BaseClass.driver.findElement(ele);
 
 		Actions actions = new Actions(BaseClass.driver);
-		actions.click(a).sendKeys(Keys.ARROW_RIGHT).perform();
+		for (int i = 0; i < num; i++) {
+			actions.sendKeys(Keys.ARROW_UP).perform();
+		}
 	}
 
-	public void _moveDown(By ele) {
-		WebElement a = BaseClass.driver.findElement(ele);
+	public void _moveLeft(int num) {
+		
 
 		Actions actions = new Actions(BaseClass.driver);
-		actions.click(a).sendKeys(Keys.ARROW_DOWN).perform();
+
+		for (int i = 0; i < num; i++) {
+			actions.sendKeys(Keys.ARROW_LEFT).perform();
+			
+		}
+	}
+	public void _moveRight(int num) {
+//	    WebElement element = BaseClass.driver.findElement(ele);
+//	    highlightElement(element);
+
+	    Actions actions = new Actions(BaseClass.driver);
+
+	    for (int i = 0; i < num; i++) {
+	    	actions.sendKeys(Keys.ARROW_RIGHT).perform();
+	    }
 	}
 
-	public void _moveLeft(By ele) {
-		WebElement a = BaseClass.driver.findElement(ele);
 
-		highlightElement(a);
-
-		Actions actions = new Actions(BaseClass.driver);
-		actions.clickAndHold(a).sendKeys(Keys.ARROW_LEFT).sendKeys(Keys.ARROW_LEFT).sendKeys(Keys.ARROW_LEFT)
-				.sendKeys(Keys.ARROW_LEFT).sendKeys(Keys.ARROW_LEFT).sendKeys(Keys.ARROW_LEFT).sendKeys(Keys.ARROW_LEFT)
-				.sendKeys(Keys.ARROW_LEFT).sendKeys(Keys.ARROW_LEFT).sendKeys(Keys.ARROW_LEFT).sendKeys(Keys.ARROW_LEFT)
-				.sendKeys(Keys.ARROW_LEFT).sendKeys(Keys.ARROW_LEFT).sendKeys(Keys.ARROW_LEFT).sendKeys(Keys.ARROW_LEFT)
-				.sendKeys(Keys.ARROW_LEFT).perform();
-	}
+//	public void _moveRight(By ele, int num) {
+//		WebElement a = BaseClass.driver.findElement(ele);
+//
+//		highlightElement(a);
+//
+//		Actions actions = new Actions(BaseClass.driver);
+//
+//		for (int i = 0; i < num; i++) {
+//			actions.clickAndHold(a).sendKeys(Keys.ARROW_RIGHT).perform();
+//		}
+//	}
 
 	public void drdp(By canv, By src) {
 		// Locate canvas element
@@ -720,13 +754,13 @@ public class Operations extends Extent_Reports {
 		int sourceX = a.getSize().getWidth(); // Adjust as needed
 		int sourceY = a.getSize().getWidth(); // Adjust as needed
 		int targetX = canvasWidth / 2; // Adjust as needed
-		int targetY = canvasHeight /2; // Adjust as needed
+		int targetY = canvasHeight / 2; // Adjust as needed
 
 		// Create Actions object
 		Actions actions = new Actions(BaseClass.driver);
 
 		// Perform drag and drop using mouse movements
-		actions.clickAndHold(a).moveToElement(canvas,targetX-sourceX, targetY-sourceY).release().build().perform();
+		actions.clickAndHold(a).moveToElement(canvas, targetX - sourceX, targetY - sourceY).release().build().perform();
 
 		// Wait for a moment (optional)
 		waitForPageLoad(2);
@@ -737,31 +771,25 @@ public class Operations extends Extent_Reports {
 		WebElement sourceElement = BaseClass.driver.findElement(source);
 		WebElement canvas = BaseClass.driver.findElement(canv);
 
-		 // Calculate source and target element positions
-        int sourceX = sourceElement.getLocation().getX() + sourceElement.getSize().getWidth() / 2;
-        int sourceY = sourceElement.getLocation().getY() + sourceElement.getSize().getHeight() / 2;
-        int targetX = canvas.getLocation().getX() + canvas.getSize().getWidth() / 2;
-        int targetY = canvas.getLocation().getY() + canvas.getSize().getHeight() / 2;
+		// Calculate source and target element positions
+		int sourceX = sourceElement.getLocation().getX() + sourceElement.getSize().getWidth() / 2;
+		int sourceY = sourceElement.getLocation().getY() + sourceElement.getSize().getHeight() / 2;
+		int targetX = canvas.getLocation().getX() + canvas.getSize().getWidth() / 2;
+		int targetY = canvas.getLocation().getY() + canvas.getSize().getHeight() / 2;
 
-        // Use JavaScript to simulate drag and drop
-        JavascriptExecutor jsExecutor = (JavascriptExecutor) BaseClass.driver;
-        String dragAndDropScript = "function createEvent(type) {\n" +
-                "  var event = document.createEvent('MouseEvent');\n" +
-                "  event.initMouseEvent(type, true, true, window, 0, 0, 0, %d, %d, false, false, false, false, 0, null);\n" +
-                "  return event;\n" +
-                "}\n" +
-                "var source = arguments[0];\n" +
-                "var target = arguments[1];\n" +
-                "source.dispatchEvent(createEvent('mousedown'));\n" +
-                "setTimeout(function() {\n" +
-                "  source.dispatchEvent(createEvent('mousemove'));\n" +
-                "  target.dispatchEvent(createEvent('mousemove'));\n" +
-                "  target.dispatchEvent(createEvent('mouseup'));\n" +
-                "}, 100);\n";
+		// Use JavaScript to simulate drag and drop
+		JavascriptExecutor jsExecutor = (JavascriptExecutor) BaseClass.driver;
+		String dragAndDropScript = "function createEvent(type) {\n"
+				+ "  var event = document.createEvent('MouseEvent');\n"
+				+ "  event.initMouseEvent(type, true, true, window, 0, 0, 0, %d, %d, false, false, false, false, 0, null);\n"
+				+ "  return event;\n" + "}\n" + "var source = arguments[0];\n" + "var target = arguments[1];\n"
+				+ "source.dispatchEvent(createEvent('mousedown'));\n" + "setTimeout(function() {\n"
+				+ "  source.dispatchEvent(createEvent('mousemove'));\n"
+				+ "  target.dispatchEvent(createEvent('mousemove'));\n"
+				+ "  target.dispatchEvent(createEvent('mouseup'));\n" + "}, 100);\n";
 
-        String formattedScript = String.format(dragAndDropScript, sourceX, sourceY, targetX, targetY);
-        jsExecutor.executeScript(formattedScript, sourceElement, canvas);
-
+		String formattedScript = String.format(dragAndDropScript, sourceX, sourceY, targetX, targetY);
+		jsExecutor.executeScript(formattedScript, sourceElement, canvas);
 
 	}
 

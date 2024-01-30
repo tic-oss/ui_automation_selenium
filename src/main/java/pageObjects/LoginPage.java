@@ -20,7 +20,8 @@ public class LoginPage extends BaseClass {
 	By label_register = By.id("kc-page-title");
 	By textbox_Username = By.id("username");
 	By textbox_Password = By.id("password");
-	By button_SignIn = By.id("kc-login");
+	//By button_SignIn = By.id("kc-login");
+	By button_SignIn = By.xpath("//input[@id='kc-login']");
 
 	By textbox_firstname = By.xpath("//input[@id='firstName']");
 	By textbox_lastname = By.xpath("//input[@id='lastName']");
@@ -34,6 +35,12 @@ public class LoginPage extends BaseClass {
 	By Label_InValidEmail = By.xpath("//span[@id='input-error-email']");
 	By Lable_Email_Error = By.xpath("//span[@id='input-error-email']");
 	By Text_Invalid_username_or_password = By.xpath("//span[@id='input-error']");
+	
+	// After login 
+	
+		public By canvasToCodeMenuButton = By.xpath("//button[@id='menu-button-:r1:']");
+		public By canvasToCodeMenuNewButton = By.xpath("//button[@id='menu-list-:r1:-menuitem-:r2:']");
+		public By canvasToCodeMenuExistingButton = By.xpath("//button[@id='menu-list-:r1:-menuitem-:r3:']");
 
 	// ****************** ACTIONS ****************************//
 	/*
@@ -107,6 +114,28 @@ public class LoginPage extends BaseClass {
 					"Invalid username or password.");
 		}
 	}
+	public HomePage openLoginPage() {
+		clickOnButton(link_login, "Login link");
+		return new HomePage();
+
+	}
+
+	public LoginPage openCanvasToCodeMenuNewButton() {
+		clickOnButton(canvasToCodeMenuButton, "CanvasToCode");
+		clickOnButton(canvasToCodeMenuNewButton, " New");
+
+		return new LoginPage();
+	}
+
+	public LoginPage openCanvasToCodeMenuExistingButton() {
+		clickOnButton(canvasToCodeMenuButton, "CanvasToCode");
+		clickOnButton(canvasToCodeMenuExistingButton, " New");
+
+		return new LoginPage();
+	}
+
+	
+	
 
 	public void logout() {
 		clickOnButton(link_logout, "Log out button");

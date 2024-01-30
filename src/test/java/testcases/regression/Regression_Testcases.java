@@ -1,5 +1,8 @@
 package testcases.regression;
 
+import java.awt.Canvas;
+
+import org.openqa.selenium.By;
 import org.testng.annotations.Test;
 
 import components.BaseClass;
@@ -11,12 +14,13 @@ import pageObjects.LoginPage;
 import utils.XML_Operations;
 
 public class Regression_Testcases extends BaseClass {
+	private static final String Right = null;
+	private static final String Group = null;
 	// ****************** CLASS INSTANCES ****************************//
 	XML_Operations xml_Ops = new XML_Operations();
 	HomePage homePage = new HomePage();
 	LoginPage loginPage = new LoginPage();
 	CanvasPage canvasPage = new CanvasPage();
-	
 
 	// ****************** TEST SCRIPTS ****************************//
 
@@ -113,6 +117,8 @@ public class Regression_Testcases extends BaseClass {
 		homePage = launch_TIC_Application();
 		homePage.openLoginPage();
 		loginPage.login(username, password);
+
+		waitForPageLoad(5);
 		loginPage.verifyLoggedInUserName(username);
 	}
 
@@ -156,10 +162,10 @@ public class Regression_Testcases extends BaseClass {
 
 	@Test(groups = { "regression" })
 	public void Tc_06_Create_UI() {
-
-		homePage = launch_TIC_Application();
+		homePage.launch_TIC_Application();
+		// homePage = launch_TIC_Application_();
 		canvasPage = homePage.openCanvas();
-		canvasPage.createUI();
+		// canvasPage.createUI();
 
 	}
 	// This is a test case to create Service
@@ -168,7 +174,7 @@ public class Regression_Testcases extends BaseClass {
 	public void TC_07_create_Service() {
 		homePage = launch_TIC_Application();
 		canvasPage = homePage.openCanvas();
-		canvasPage.createService();
+		canvasPage.createService("");
 	}
 	// This is a test case to create Group
 
@@ -190,7 +196,7 @@ public class Regression_Testcases extends BaseClass {
 	// This is a test case to create project
 
 	@Test(groups = { "regression" })
-	public void TC_10_createProject() {
+	public void TC_10_createProject_withNewRegistration() {
 		// Testdata setup
 		Guest newUser = (Guest) xml_Ops.getTestData("guest");
 		String firstName = newUser.getFirstName() + getTimestamp();
@@ -208,10 +214,85 @@ public class Regression_Testcases extends BaseClass {
 		loginPage.Registration(newUser);
 
 		canvasPage = homePage.openCanvas();
-		canvasPage.createUI();
+		canvasPage.createUI("TestUI01");
+
+//		canvasPage.createService();
+//		canvasPage.dragtheNode_Authentication();
+//		canvasPage.saveProject();
+
+	}
+
+	@Test(groups = { "regression" })
+	public void TC_10_createProject_withlogin() {
+
+		homePage = launch_TIC_Application();
+
+//		homePage.openLoginPage();
+//		loginPage.login(username, password);
+//		waitForPageLoad(5);
+//		loginPage.verifyLoggedInUserName(username);
+//		homePage.openCanvasToCodeMenuNewButton();
+
+		canvasPage = homePage.openCanvas();
+		// canvasPage.createUI();
 		canvasPage.dragtheNode_Authentication();
 		canvasPage.saveProject();
+		waitForPageLoad(3);
 
+		// canvasPage.createService();
+		// homePage.moveDraggedKeycloakNodeToRight();
+
+		// canvasPage.dragtheNode_serviceDiscovery();
+		// waitForPageLoad(2);
+		// canvasPage.dragtheNode_LogManagement();
+		// homePage.moveDraggedElasticNodeToLeft();
+		// waitForPageLoad(2);
+		// canvasPage.saveProject();
+		// waitForPageLoad(3);
+		// homePage.openCanvasToCodeMenuExistingButton();
+		// waitForPageLoad(3);
+
+	}
+
+	@Test(groups = { "regression" })
+	public void TC_11_createProject1() {
+		homePage = launch_TIC_Application();
+		canvasPage = homePage.openCanvas();
+		canvasPage.createService("TestService01");
+		canvasPage.createUI("TestUI01");
+		//canvasPage.moveNode("UITestUI01", Constants.LEFT, 10);
+
+		//canvasPage.createService("TestService01");
+		//canvasPage.moveNode("TestService01", Constants.RIGHT, 10);
+		//canvasPage.moveNode("TestService01", Constants.DOWN, 18);
+
+		canvasPage.enterProjectName();
+		 waitForPageLoad(3);
+		canvasPage. createConnection("UITestUI01", Constants.RIGHT, "TestService01", Constants.LEFT);
+		 waitForPageLoad(3);
+		 
+
+	}
+
+	@Test(groups = { "regression" })
+	public void TC_12_createDEMOProject() {
+		homePage = launch_TIC_Application();
+		canvasPage = homePage.openCanvas();
+		canvasPage.createUI("TestUI01");
+		canvasPage.dragtheNode_Database_postgrySQL();
+		waitForPageLoad(2);
+		canvasPage.createConnection1();
+		 waitForPageLoad(13);
+	}
+	@Test(groups = { "regression" })
+	public void TC_13_createDEMOProject1() {
+		homePage = launch_TIC_Application();
+		canvasPage = homePage.openCanvas();
+		canvasPage.createUI("TestUI01");
+		canvasPage.createService("TestService01");
+		waitForPageLoad(2);
+		canvasPage.createConnectionuiTOservice();
+		 waitForPageLoad(13);
 	}
 
 }

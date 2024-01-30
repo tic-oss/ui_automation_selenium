@@ -57,14 +57,27 @@ public class Smoke_Testcases extends BaseClass {
 	// This is a test case to create project
 
 	@Test(groups = { "regression" })
-	public void TC_03_createProject() {
+	public void TC_03_createProject_withLogin() {
 		homePage = launch_TIC_Application();
 		homePage.openLoginPage();
 		loginPage.login(username, password);
 		canvasPage = homePage.openCanvas();
-		canvasPage.createUI();
+		//canvasPage.createUI();
 		canvasPage.dragtheNode_Authentication();
 		canvasPage.saveProject();
+
+	}
+	@Test(groups = { "regression" })
+	public void TC_03_createProject() {
+		homePage = launch_TIC_Application();
+		canvasPage = homePage.openCanvas();
+		//canvasPage.createUI();
+		canvasPage.dragtheNode_Authentication();
+//		canvasPage.moveDraggedKeycloakNodeToLeft();
+//		canvasPage.dragtheNode_LogManagement();
+//		
+//		canvasPage.moveDraggedElasticNodeToDown();
+		canvasPage. enterProjectName();
 
 	}
 

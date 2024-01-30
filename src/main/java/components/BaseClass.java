@@ -77,8 +77,8 @@ public class BaseClass extends Operations {
 
 		switch (browser.toLowerCase()) {
 		case "chrome":
-			WebDriverManager.chromedriver().setup();
-			// System.setProperty("webdriver.chrome.driver", "chromedriver.exe");
+//			WebDriverManager.chromedriver().setup();
+			System.setProperty("webdriver.chrome.driver", "chromedriver.exe");
 			ChromeOptions ch_options = new ChromeOptions();
 
 			if (Boolean.parseBoolean(headless))
@@ -142,7 +142,7 @@ public class BaseClass extends Operations {
 	
 
 	/*
-	 * Usage : To launch TextPay application
+	 * Usage : To launch TIC application
 	 * 
 	 * Author : kavitha Thota (kavitha.t@comakeit.com)
 	 */
@@ -213,7 +213,6 @@ public class BaseClass extends Operations {
 	}
 
 
-
 	/*
 	 * Usage : To generate random number
 	 *
@@ -223,7 +222,53 @@ public class BaseClass extends Operations {
 		Random random = new Random();
 		return String.format("%02d", random.nextInt(100));
 	}
-
 	
+	/*
+	 * Usage : To generate random Port number
+	 *
+	 * Author : Kavitha  (Kavitha.t@comakeit.com)
+	 */
+	public String getRandomPortNumber() {	
+		
+		Random random = new Random();
 
+        int randomNumber;
+        do {
+            randomNumber = 1000 + random.nextInt(9000);
+        } while (String.valueOf(randomNumber).startsWith("0"));		
+		
+		return randomNumber+"";
+	}
+	
+	
+	/*
+	 * Usage : To launch Reactflow application
+	 * 
+	 * Author : kavitha Thota (kavitha.t@comakeit.com)
+	 */
+//	public HomePage launch_ReactFlowApplication() {
+//		driver.get("https://reactflow.dev/examples");
+//		HomePage homePage = new HomePage();
+//		waitForElementTobeDisplayed(homePage.logo_reactflow);
+//		if (isElementDisplayed(homePage.logo_reactflow))
+//			passStep("Launched the react flow application");
+//		waitForPageLoad(5);
+//		return homePage;
+//	}
+	
+	
+	/*
+	 * Usage : To launch Flowise application
+	 * 
+	 * Author : kavitha Thota (kavitha.t@comakeit.com)
+	 */
+	public HomePage launch_FlowiseApplication() {
+		driver.get("http://localhost:3000/canvas");
+		HomePage homePage = new HomePage();
+		waitForElementTobeDisplayed(homePage.button_Plus);
+		if (isElementDisplayed(homePage.button_Plus))
+			passStep("Launched the Flowise application");
+		waitForPageLoad(5);
+		return homePage;
+	}
 }
