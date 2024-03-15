@@ -13,7 +13,7 @@ import org.openqa.selenium.interactions.Actions;
  *
  * Extends : BaseClass
  *
- * Author : Kavitha (Kavitha.t@comakeit.com)
+ * Author : Kavitha 
  */
 public class CanvasPage extends BaseClass {
 
@@ -112,7 +112,7 @@ public class CanvasPage extends BaseClass {
 	/*
 	 * Method to create UI node
 	 *
-	 * Author : Kavitha Thota(Kavitha.t@comakeit.com)
+	 * Author : Kavitha Thota
 	 */
 
 	public void createUI(String name) {
@@ -131,7 +131,7 @@ public class CanvasPage extends BaseClass {
 	/*
 	 * Method to create Service node
 	 *
-	 * Author : Kavitha Thota(Kavitha.t@comakeit.com)
+	 * Author : Kavitha Thota
 	 */
 	public void createService(String name) {
 		dragAndDrop(node_Service, canvas);

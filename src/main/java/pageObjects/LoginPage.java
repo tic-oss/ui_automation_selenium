@@ -11,7 +11,7 @@ import org.testng.Assert;
  *
  * Extends : BaseClass
  *
- * Author : Kavitha (pavanprasad.v@comakeit.com)
+ * Author : Kavitha
  */
 public class LoginPage extends BaseClass {
 	// ****************** WEB ELEMENTS ****************************//
@@ -46,7 +46,7 @@ public class LoginPage extends BaseClass {
 	/*
 	 * Method to navigate to perform spa login
 	 *
-	 * Author : Kavitha (Kavitha.t@comakeit.com)
+	 * Author : Kavitha 
 	 */
 	public HomePage login(String username, String password) {
 

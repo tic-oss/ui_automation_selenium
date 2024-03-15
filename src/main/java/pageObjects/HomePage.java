@@ -8,7 +8,7 @@ import org.openqa.selenium.By;
  *
  * Extends : BaseClass
  *
- * Author : Kavitha  (Kavitha.t@comakeit.com)
+ * Author : Kavitha  
  */
 public class HomePage extends BaseClass {
 
@@ -75,7 +75,7 @@ public class HomePage extends BaseClass {
 	/*
 	 * Method to navigate to Canvas Page
 	 *
-	 * Author : Kavitha Thota(Kavitha.t@comakeit.com)
+	 * Author : Kavitha Thota
 	 */
 
 	public CanvasPage openCanvas() {

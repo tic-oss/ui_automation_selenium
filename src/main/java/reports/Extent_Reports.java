@@ -16,7 +16,7 @@ import com.relevantcodes.extentreports.LogStatus;
 /*
  * This class is to handle the HTML reports upon the execution
  * 
- * Author : Kavitha Thota(Kavitha.t@comakeit.com)
+ * Author : Kavitha Thota
  */
 
 public class Extent_Reports {
@@ -32,7 +32,7 @@ public class Extent_Reports {
 	 * 
 	 * @BeforeSuite : annotation to invoke before the execution of entire suite
 	 * 
-	 * Author : Kavitha Thota (Kavitha.t@comakeit.com)
+	 * Author : Kavitha Thota 
 	 */
 	@BeforeSuite(alwaysRun = true)
 	public static void startTest() {
@@ -46,7 +46,7 @@ public class Extent_Reports {
 		report = new ExtentReports(
 				System.getProperty("user.dir") + "//TestResults//" + d + "//" + reportName + ".html");
 
-		report.addSystemInfo("Environment", "QA").addSystemInfo("User Name", "Kavitha Thota (kavitha.t@comakeit.com)");
+		report.addSystemInfo("Environment", "QA").addSystemInfo("User Name", "Kavitha Thota ");
 
 		// Configure Log4j
 		System.setProperty("log4j.configurationFile",
@@ -59,7 +59,7 @@ public class Extent_Reports {
 	 * 
 	 * @AfterMethod : annotation to invoke aftwr the execution of entire suite
 	 * 
-	 * Author : Kavitha Thota (Kavitha.t@comakeit.com)
+	 * Author : Kavitha Thota 
 	 */
 	@AfterMethod(alwaysRun = true)
 	public static void endTest() {
@@ -70,7 +70,7 @@ public class Extent_Reports {
 	/*
 	 * This method is to include a statement as passed
 	 * 
-	 * Author : Kavitha Thota (Kavitha.t@comakeit.com)
+	 * Author : Kavitha Thota 
 	 */
 	public void passStep(String stepinfo) {
 		test.log(LogStatus.PASS, stepinfo);
@@ -80,7 +80,7 @@ public class Extent_Reports {
 	/*
 	 * This method is to include a statement as failed
 	 * 
-	 * Author : Kavitha Thota (Kavitha.t@comakeit.com)
+	 * Author : Kavitha Thota 
 	 */
 	public void failStep(String stepinfo) {
 		test.log(LogStatus.FAIL, stepinfo);
@@ -89,7 +89,7 @@ public class Extent_Reports {
 	/*
 	 * This method is to include a statement as information
 	 * 
-	 * Author : Kavitha Thota (Kavitha.t@comakeit.com)
+	 * Author : Kavitha Thota 
 	 */
 	public void stepInfo(String stepinfo) {
 		test.log(LogStatus.INFO, "<b>" + stepinfo + "</b>");

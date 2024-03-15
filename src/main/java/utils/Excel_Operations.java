@@ -17,7 +17,7 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
  * Class is to handle the Excel operations i.e. getting test data from excel and binding to Java object
  * 
  * 
- * Author : Kavitha Thota(Kavitha.t@comakeit.com)
+ * Author : Kavitha Thota
  */
 public class Excel_Operations extends Extent_Reports {
 
@@ -27,7 +27,7 @@ public class Excel_Operations extends Extent_Reports {
 	/*
 	 * This method is to get the number of sheets from excel sheet
 	 * 
-	 * Author : Kavitha Thota(Kavitha.t@comakeit.com)
+	 * Author : Kavitha Thota
 	 */
 
 	public List<String> get_Total_Sheets(String fileName) {

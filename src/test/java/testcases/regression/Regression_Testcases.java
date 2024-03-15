@@ -27,7 +27,7 @@ public class Regression_Testcases extends BaseClass {
 	/*
 	 * This is a test case to register a new user to the application with valid data
 	 *
-	 * Author : Kavitha Thota (kavitha.t@comakeit.com)
+	 * Author : Kavitha Thota 
 	 */
 
 	@Test(groups = { "regression" })
@@ -55,7 +55,7 @@ public class Regression_Testcases extends BaseClass {
 	 * This is a test case to register a new user to the application with INvalid
 	 * data
 	 *
-	 * Author : Kavitha Thota (kavitha.t@comakeit.com)
+	 * Author : Kavitha Thota 
 	 */
 
 	@Test(groups = { "regression" })
@@ -81,7 +81,7 @@ public class Regression_Testcases extends BaseClass {
 	/*
 	 * This is a test case to Register to the application with Duplicate data
 	 *
-	 * Author : Kavitha Thota (kavitha.t@comakeit.com)
+	 * Author : Kavitha Thota 
 	 */
 
 	@Test(groups = { "regression" })

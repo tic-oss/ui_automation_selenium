@@ -9,7 +9,7 @@ import java.io.Serializable;
  * This model is to create Guest java object
  * Data is getting loaded from XML File
  * 
- * Author : Kavitha Thota(Kavitha.t@comakeit.com)
+ * Author : Kavitha Thota
  */
 @XmlRootElement(name = "guest")
 @XmlAccessorType(XmlAccessType.PROPERTY)

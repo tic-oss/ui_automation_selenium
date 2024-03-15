@@ -42,7 +42,7 @@ public class BaseClass extends Operations {
 	/*
 	 * This method is to load data from application.properties files
 	 * 
-	 * Author : kavitha Thota (kavitha.t@comakeit.com)
+	 * Author : kavitha Thota 
 	 */
 	public void loadProperties() throws IOException {
 
@@ -68,7 +68,7 @@ public class BaseClass extends Operations {
 	 * 
 	 * @BeforeMethod : annotation to invoke before the execution of each test method
 	 * 
-	 * Author : kavitha Thota (kavitha.t@comakeit.com)
+	 * Author : kavitha Thota 
 	 */
 	@BeforeMethod(alwaysRun = true)
 	public void launchBrowser(Method testMethod) throws InterruptedException, IOException {
@@ -119,7 +119,7 @@ public class BaseClass extends Operations {
 	/*
 	 * Usage: to get the test case name to include in the reports
 	 * 
-	 * Author : kavitha Thota (kavitha.t@comakeit.com)
+	 * Author : kavitha Thota 
 	 */
 	public String getTestCaseName(Method testMethod) {
 
@@ -133,7 +133,7 @@ public class BaseClass extends Operations {
 	/*
 	 * Usage : To get the current timestamp
 	 * 
-	 * Author : kavitha Thota (kavitha.t@comakeit.com)
+	 * Author : kavitha Thota 
 	 */
 	public String getTimestamp() {
 		return new SimpleDateFormat("HHmmss").format(new Date());
@@ -144,7 +144,7 @@ public class BaseClass extends Operations {
 	/*
 	 * Usage : To launch TIC application
 	 * 
-	 * Author : kavitha Thota (kavitha.t@comakeit.com)
+	 * Author : kavitha Thota 
 	 */
 	public HomePage launch_TIC_Application() {
 		driver.get(tic_url);
@@ -160,7 +160,7 @@ public class BaseClass extends Operations {
 	 * 
 	 * @AfterMethod : annotation to invoke after the execution of each test method
 	 * 
-	 * Author : kavitha Thota (kavitha.t@comakeit.com)
+	 * Author : kavitha Thota 
 	 */
 	@AfterMethod(alwaysRun = true)
 	public void quitBrowser() {
@@ -171,7 +171,7 @@ public class BaseClass extends Operations {
 	/*
 	 * Usage : This method is to get the screenshots of the web page
 	 * 
-	 * Author : kavitha Thota (kavitha.t@comakeit.com)
+	 * Author : kavitha Thota 
 	 */
 	public static String getScreenshot(WebDriver driver, String screenshotName) throws IOException {
 		DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
@@ -198,7 +198,7 @@ public class BaseClass extends Operations {
 	 * 
 	 * @AfterMethod : annotation to invoke after the execution of each test method
 	 * 
-	 * Author : kavitha Thota (kavitha.t@comakeit.com)
+	 * Author : kavitha Thota 
 	 */
 	@AfterMethod(alwaysRun = true)
 	public void getResult(ITestResult result) throws IOException {
@@ -216,7 +216,7 @@ public class BaseClass extends Operations {
 	/*
 	 * Usage : To generate random number
 	 *
-	 * Author : Kavitha  (Kavitha.t@comakeit.com)
+	 * Author : Kavitha  
 	 */
 	public String getRandomNumber() {
 		Random random = new Random();
@@ -226,7 +226,7 @@ public class BaseClass extends Operations {
 	/*
 	 * Usage : To generate random Port number
 	 *
-	 * Author : Kavitha  (Kavitha.t@comakeit.com)
+	 * Author : Kavitha  
 	 */
 	public String getRandomPortNumber() {	
 		
@@ -244,7 +244,7 @@ public class BaseClass extends Operations {
 	/*
 	 * Usage : To launch Reactflow application
 	 * 
-	 * Author : kavitha Thota (kavitha.t@comakeit.com)
+	 * Author : kavitha Thota 
 	 */
 //	public HomePage launch_ReactFlowApplication() {
 //		driver.get("https://reactflow.dev/examples");
@@ -260,7 +260,7 @@ public class BaseClass extends Operations {
 	/*
 	 * Usage : To launch Flowise application
 	 * 
-	 * Author : kavitha Thota (kavitha.t@comakeit.com)
+	 * Author : kavitha Thota 
 	 */
 	public HomePage launch_FlowiseApplication() {
 		driver.get("http://localhost:3000/canvas");

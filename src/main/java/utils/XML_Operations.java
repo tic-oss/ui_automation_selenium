@@ -13,7 +13,7 @@ import dataModel.*;
  * Class is to handle the XML operations i.e. getting test data from xml and binding to Java object
  * 
  * 
- * Author : Kavitha Thota(Kavitha.t@comakeit.com)
+ * Author : Kavitha Thota
  */
 public class XML_Operations extends BaseClass {
 
@@ -21,7 +21,7 @@ public class XML_Operations extends BaseClass {
 	 * This method is to load the data from XML file and bind it to the respective
 	 * JAVA object
 	 * 
-	 * Author : Kavitha Thota(Kavitha.t@comakeit.com)
+	 * Author : Kavitha Thota
 	 */
 	public Object getTestData(String model) {
 		JAXBContext jaxbContext;
